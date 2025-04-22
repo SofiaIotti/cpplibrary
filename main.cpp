@@ -10,7 +10,7 @@ int main()
     {
         string title;
         string author;
-        int year;
+        string year;
         bool available;
     } book;
 
@@ -19,12 +19,13 @@ int main()
     string menu_choice;
     string new_title;
     string new_author;
-    int new_year = 0;
+    string new_year;
     bool new_available = false;
 
     bool continue_program = true;
     string choice_continue;
     string search_choice;
+    string search_parameter;
     string search_string;
     string book_choice;
 
@@ -66,26 +67,14 @@ int main()
                 cout << "Insert your search: " << endl;
                 cin >> search_string;
             }
-
+            
             if (search_choice == "All" || search_choice == "all")
-            {
-                for (const auto &book : books)
-                {
-                    cout << "Title: " << book.title << endl;
-                    cout << "Author: " << book.author << endl;
-                    cout << "Year: " << book.year << endl;
-                    cout << "Available: " << (book.available ? "Yes" : "No") << endl;
-                    cout << "\n------------------------\n"
-                         << endl;
-                }
-            }
-            else if (search_choice == "T" || search_choice == "t")
             {
                 for (size_t i = 0; i < books.size(); ++i)
                 {
-                    if (book.title.find(search_string) != string::npos)
+                    if (book.available == true)
                     {
-                        cout << "#" << i << endl;
+                        cout << "#" << (i + 1) << endl;
                         cout << "Title: " << book.title << endl;
                         cout << "Author: " << book.author << endl;
                         cout << "Year: " << book.year << endl;
@@ -95,18 +84,46 @@ int main()
                     }
                 }
             }
-            else if (search_choice == "A" || search_choice == "a")
+            else
             {
-            }
-            else if (search_choice == "Y" || search_choice == "y")
-            {
+                if (search_choice == "T" || search_choice == "t")
+                {
+                    search_parameter = book.title;
+                }
+                else if (search_choice == "A" || search_choice == "a")
+                {
+                    search_parameter = book.author;
+                }
+                else if (search_choice == "Y" || search_choice == "y")
+                {
+                    search_parameter = book.year;
+                }
+
+                for (size_t i = 0; i < books.size(); ++i)
+                {
+                    if ((search_parameter.find(search_string) != string::npos) && (book.available == true))
+                    {
+                        cout << "#" << (i + 1) << endl;
+                        cout << "Title: " << book.title << endl;
+                        cout << "Author: " << book.author << endl;
+                        cout << "Year: " << book.year << endl;
+                        cout << "Available: " << (book.available ? "Yes" : "No") << endl;
+                        cout << "\n------------------------\n"
+                             << endl;
+                    }
+                }
             }
 
             if (menu_choice == "B")
             {
+
+                cout << "Which book would you like to borrow?" << endl;
+                cin >> book_choice;
             }
             else if (menu_choice == "C")
             {
+                cout << "Which book would you like to return?" << endl;
+                cin >> book_choice;
             }
 
             cout << "Want to go back to the menu or exit the program?" << endl
@@ -125,7 +142,7 @@ int main()
         {
             for (size_t i = 0; i < books.size(); ++i)
             {
-                
+
                 cout << "Title: " << book.title << endl;
                 cout << "Author: " << book.author << endl;
                 cout << "Year: " << book.year << endl;
