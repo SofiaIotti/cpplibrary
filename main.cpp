@@ -34,7 +34,7 @@ int main()
 
     do
     {
-        if (menu_choice == "A")
+        if (menu_choice == "A" || menu_choice == "a")
         {
             cout << "Insert the Title:" << endl;
             cin >> new_title;
@@ -48,7 +48,7 @@ int main()
             cout << "Want to go back to the menu or exit the program?" << endl
                  << "A) Go back\nB) Exit\nSelect:" << endl;
             cin >> choice_continue;
-            if (choice_continue == "A")
+            if (choice_continue == "A" || choice_continue == "a")
             {
                 continue_program = true;
             }
@@ -57,7 +57,7 @@ int main()
                 continue_program = false;
             }
         }
-        else if (menu_choice == "B" || menu_choice == "C")
+        else if (menu_choice == "B" || menu_choice == "C" || menu_choice == "b" || menu_choice == "c")
         {
             cout << "Search by:" << endl
                  << "T) Title\nA) Author\nY) Year\nAll) All available books" << endl;
@@ -67,7 +67,7 @@ int main()
                 cout << "Insert your search: " << endl;
                 cin >> search_string;
             }
-            
+
             if (search_choice == "All" || search_choice == "all")
             {
                 for (size_t i = 0; i < books.size(); ++i)
@@ -119,6 +119,13 @@ int main()
 
                 cout << "Which book would you like to borrow?" << endl;
                 cin >> book_choice;
+
+                if (isdigit(book_choice))
+                {
+                    books.at(book_choice).available = false;
+                    cout << "You successfully borrowed " << books.at(book_choice)
+                    .title << endl;
+                }
             }
             else if (menu_choice == "C")
             {
@@ -138,7 +145,7 @@ int main()
                 continue_program = false;
             }
         }
-        else if (menu_choice == "D")
+        else if (menu_choice == "D" || menu_choice == "d")
         {
             for (size_t i = 0; i < books.size(); ++i)
             {
